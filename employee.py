@@ -26,9 +26,9 @@ class Salaried(Employee):
 class Sal_Commission(Salaried):
     def __init__(self, name, salary = None, contracts = None, contract_rate = None):
         super().__init__(name, salary)
-
+        self.commission = contracts * contract_rate
     def get_pay(self):
-        return self.salary + (self.contracts * self.contract_rate)
+        return self.salary + self.commission
 class Sal_Bonus(Salaried):
     def __init__(self, name, salary = None, bonus = None):
         super().__init__(name, salary)
@@ -57,26 +57,27 @@ class Hr_Bonus(Hourly):
 class Hr_Commission(Hourly):
     def __init__(self, name, hour_rate = None, hours = None, contracts = None, contract_rate = None):
         super().__init__(name, hour_rate, hours)
-        self.bonus = contracts * contract_rate
+        self.commission = contracts * contract_rate
 
     def get_pay(self):
-        return (self._hour_rate * self._hours) + self.bonus
+        return (self._hour_rate * self._hours) + self.commission
 
 # Billie works on a monthly salary of 4000.  Their total pay is 4000.
 billie = Salaried('Billie', salary = 4000)
-
+print(billie.get_pay()) 
 
 # Charlie works on a contract of 100 hours at 25/hour.  Their total pay is 2500.
 charlie = Hourly('Charlie', hour_rate = 25, hours = 100)
-
+# print(charlie.get_pay())
 # Renee works on a monthly salary of 3000 and receives a commission for 4 contract(s) at 200/contract.  Their total pay is 3800.
 renee = Sal_Commission('Renee', salary = 3000, contract_rate=200, contracts=4)
-
+# print(renee.get_pay())
 # Jan works on a contract of 150 hours at 25/hour and receives a commission for 3 contract(s) at 220/contract.  Their total pay is 4410.
 jan = Hr_Commission('Jan', hours = 150, hour_rate = 25, contracts = 3, contract_rate= 220)
-
+# print(jan.get_pay())
 # Robbie works on a monthly salary of 2000 and receives a bonus commission of 1500.  Their total pay is 3500.
 robbie = Sal_Bonus('Robbie', salary = 2000, bonus=1500)
-
+# print(robbie.get_pay())
 # Ariel works on a contract of 120 hours at 30/hour and receives a bonus commission of 600.  Their total pay is 4200.
 ariel = Hr_Bonus('Ariel', hour_rate=30, hours = 120, bonus = 600)
+# print(ariel.get_pay())
